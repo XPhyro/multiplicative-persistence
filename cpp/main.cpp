@@ -5,7 +5,6 @@
 #include <string>
 #include <chrono>
 
-int persistence_str(long long n);
 int persistence_int(long long n);
 
 int main()
