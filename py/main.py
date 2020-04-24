@@ -5,6 +5,7 @@
 import time
 
 
+ITERATION_COUNT = 1000000
 MAX_NUM = 277777788888899
 
 
@@ -36,12 +37,12 @@ def persistence_int(n):
 
 t0 = time.time()
 
-for i in range(1000000):
+for i in range(ITERATION_COUNT):
     persistence_str(MAX_NUM)
 
 t1 = time.time()
 
-for i in range(1000000):
+for i in range(ITERATION_COUNT):
     persistence_int(MAX_NUM)
 
 t2 = time.time()
