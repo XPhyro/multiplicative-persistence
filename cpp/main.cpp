@@ -2,7 +2,6 @@
 #define MAX_NUM 277777788888899
 
 #include <iostream>
-#include <string>
 #include <chrono>
 
 int persistence_int(long long n);
