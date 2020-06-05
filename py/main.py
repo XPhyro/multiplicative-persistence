@@ -47,5 +47,5 @@ for i in range(ITERATION_COUNT):
 
 t2 = time.time()
 
-print(t2 - t1)
 print(t1 - t0)
+print(t2 - t1)
