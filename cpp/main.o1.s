@@ -69,12 +69,12 @@ _Z12mul_pers_newy:
 	addq	%rax, %rax
 	movq	%rdi, %rsi
 	subq	%rax, %rsi
-	imull	%esi, %ecx
+	imulq	%rsi, %rcx
 	movq	%rdi, %rax
 	movq	%rdx, %rdi
 	cmpq	$9, %rax
 	ja	.L13
-	movslq	%ecx, %rdi
+	movq	%rcx, %rdi
 	call	_Z12mul_pers_newy
 	addl	$1, %eax
 	addq	$8, %rsp
@@ -105,12 +105,12 @@ _Z8add_persy:
 	addq	%rax, %rax
 	movq	%rdi, %rsi
 	subq	%rax, %rsi
-	addl	%esi, %ecx
+	addq	%rsi, %rcx
 	movq	%rdi, %rax
 	movq	%rdx, %rdi
 	cmpq	$9, %rax
 	ja	.L22
-	movslq	%ecx, %rdi
+	movq	%rcx, %rdi
 	call	_Z8add_persy
 	addl	$1, %eax
 	addq	$8, %rsp
@@ -127,14 +127,17 @@ _Z8add_persy:
 	.section	.rodata.str1.8,"aMS",@progbits,1
 	.align 8
 .LC2:
-	.string	"Multiplicative persistence (old): "
+	.string	"Multiplicative persistence (old)        : "
 	.section	.rodata.str1.1
 .LC4:
 	.string	"s\n"
 	.section	.rodata.str1.8
 	.align 8
 .LC5:
-	.string	"Additive persistence            : "
+	.string	"Multiplicative persistence (new)        : "
+	.align 8
+.LC6:
+	.string	"Additive persistence                    : "
 	.text
 	.globl	main
 	.type	main, @function
@@ -206,7 +209,7 @@ main:
 	cvtsi2sdq	%rax, %xmm0
 	divsd	.LC1(%rip), %xmm0
 	movq	%xmm0, %rbx
-	leaq	.LC2(%rip), %rsi
+	leaq	.LC5(%rip), %rsi
 	leaq	_ZSt4cout(%rip), %rdi
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@PLT
 	movq	%rax, %rdi
@@ -217,21 +220,20 @@ main:
 	leaq	.LC4(%rip), %rsi
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@PLT
 	call	_ZNSt6chrono3_V212system_clock3nowEv@PLT
-	movq	%rax, %r12
+	movq	%rax, %rbp
 	movl	$10000000, %ebx
-	movabsq	$277777788888899, %rbp
 .L32:
-	movq	%rbp, %rdi
+	movl	$199, %edi
 	call	_Z8add_persy
 	subl	$1, %ebx
 	jne	.L32
 	call	_ZNSt6chrono3_V212system_clock3nowEv@PLT
-	subq	%r12, %rax
+	subq	%rbp, %rax
 	pxor	%xmm0, %xmm0
 	cvtsi2sdq	%rax, %xmm0
 	divsd	.LC1(%rip), %xmm0
 	movq	%xmm0, %rbx
-	leaq	.LC5(%rip), %rsi
+	leaq	.LC6(%rip), %rsi
 	leaq	_ZSt4cout(%rip), %rdi
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@PLT
 	movq	%rax, %rdi

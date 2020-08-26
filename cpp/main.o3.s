@@ -6,14 +6,17 @@
 	.section	.rodata.str1.8,"aMS",@progbits,1
 	.align 8
 .LC2:
-	.string	"Multiplicative persistence (old): "
+	.string	"Multiplicative persistence (old)        : "
 	.section	.rodata.str1.1
 .LC4:
 	.string	"s\n"
 	.section	.rodata.str1.8
 	.align 8
 .LC5:
-	.string	"Additive persistence            : "
+	.string	"Multiplicative persistence (new)        : "
+	.align 8
+.LC6:
+	.string	"Additive persistence                    : "
 	.section	.text.startup,"ax",@progbits
 	.p2align 4
 	.globl	main
@@ -44,7 +47,7 @@ main:
 	call	_ZNSt6chrono3_V212system_clock3nowEv@PLT
 	movq	%rax, %rbx
 	call	_ZNSt6chrono3_V212system_clock3nowEv@PLT
-	movl	$34, %edx
+	movl	$42, %edx
 	leaq	.LC2(%rip), %rsi
 	leaq	_ZSt4cout(%rip), %rdi
 	subq	%rbx, %rax
@@ -64,28 +67,28 @@ main:
 	call	_ZNSt6chrono3_V212system_clock3nowEv@PLT
 	movq	%rax, %rbx
 	call	_ZNSt6chrono3_V212system_clock3nowEv@PLT
-	movl	$34, %edx
-	leaq	.LC2(%rip), %rsi
-	leaq	_ZSt4cout(%rip), %rdi
-	subq	%rbx, %rax
-	pxor	%xmm0, %xmm0
-	cvtsi2sdq	%rax, %xmm0
-	divsd	.LC1(%rip), %xmm0
-	movsd	%xmm0, 8(%rsp)
-	call	_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l@PLT
-	leaq	_ZSt4cout(%rip), %rdi
-	movsd	8(%rsp), %xmm0
-	divsd	.LC3(%rip), %xmm0
-	call	_ZNSo9_M_insertIdEERSoT_@PLT
-	movl	$2, %edx
-	leaq	.LC4(%rip), %rsi
-	movq	%rax, %rdi
-	call	_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l@PLT
-	call	_ZNSt6chrono3_V212system_clock3nowEv@PLT
-	movq	%rax, %rbx
-	call	_ZNSt6chrono3_V212system_clock3nowEv@PLT
-	movl	$34, %edx
+	movl	$42, %edx
 	leaq	.LC5(%rip), %rsi
+	leaq	_ZSt4cout(%rip), %rdi
+	subq	%rbx, %rax
+	pxor	%xmm0, %xmm0
+	cvtsi2sdq	%rax, %xmm0
+	divsd	.LC1(%rip), %xmm0
+	movsd	%xmm0, 8(%rsp)
+	call	_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l@PLT
+	leaq	_ZSt4cout(%rip), %rdi
+	movsd	8(%rsp), %xmm0
+	divsd	.LC3(%rip), %xmm0
+	call	_ZNSo9_M_insertIdEERSoT_@PLT
+	movl	$2, %edx
+	leaq	.LC4(%rip), %rsi
+	movq	%rax, %rdi
+	call	_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l@PLT
+	call	_ZNSt6chrono3_V212system_clock3nowEv@PLT
+	movq	%rax, %rbx
+	call	_ZNSt6chrono3_V212system_clock3nowEv@PLT
+	movl	$42, %edx
+	leaq	.LC6(%rip), %rsi
 	leaq	_ZSt4cout(%rip), %rdi
 	subq	%rbx, %rax
 	pxor	%xmm0, %xmm0
@@ -171,13 +174,13 @@ _Z8mul_persy:
 	addq	%rax, %rax
 	subq	%rax, %rdx
 	cmpq	%rsi, %rdx
-	je	.L6
+	je	.L12
 	movq	%rsi, %rdi
 	movq	%rdx, %rsi
 	jmp	.L10
 .L11:
 	xorl	%r10d, %r10d
-.L6:
+.L12:
 	movl	%r10d, %eax
 	ret
 	.cfi_endproc
@@ -192,31 +195,31 @@ _Z12mul_pers_newy:
 	movabsq	$-3689348814741910323, %r8
 	xorl	%r9d, %r9d
 	cmpq	$9, %rdi
-	jbe	.L12
-	.p2align 4,,10
-	.p2align 3
-.L13:
-	movl	$1, %ecx
+	jbe	.L18
 	.p2align 4,,10
 	.p2align 3
 .L14:
-	movq	%rdi, %rax
-	movq	%rdi, %rsi
+	movq	%rdi, %rcx
+	movl	$1, %edi
+	.p2align 4,,10
+	.p2align 3
+.L15:
+	movq	%rcx, %rax
+	movq	%rcx, %rsi
 	mulq	%r8
 	shrq	$3, %rdx
 	leaq	(%rdx,%rdx,4), %rax
 	addq	%rax, %rax
 	subq	%rax, %rsi
-	movq	%rdi, %rax
-	movq	%rdx, %rdi
-	imull	%esi, %ecx
+	movq	%rcx, %rax
+	movq	%rdx, %rcx
+	imulq	%rsi, %rdi
 	cmpq	$9, %rax
-	ja	.L14
-	movslq	%ecx, %rdi
+	ja	.L15
 	addl	$1, %r9d
 	cmpq	$9, %rdi
-	ja	.L13
-.L12:
+	ja	.L14
+.L18:
 	movl	%r9d, %eax
 	ret
 	.cfi_endproc
@@ -231,31 +234,31 @@ _Z8add_persy:
 	movabsq	$-3689348814741910323, %r8
 	xorl	%r9d, %r9d
 	cmpq	$9, %rdi
-	jbe	.L19
+	jbe	.L26
 	.p2align 4,,10
 	.p2align 3
-.L20:
-	xorl	%ecx, %ecx
+.L22:
+	movq	%rdi, %rcx
+	xorl	%edi, %edi
 	.p2align 4,,10
 	.p2align 3
-.L21:
-	movq	%rdi, %rax
-	movq	%rdi, %rsi
+.L23:
+	movq	%rcx, %rax
+	movq	%rcx, %rsi
 	mulq	%r8
 	shrq	$3, %rdx
 	leaq	(%rdx,%rdx,4), %rax
 	addq	%rax, %rax
 	subq	%rax, %rsi
-	movq	%rdi, %rax
-	movq	%rdx, %rdi
-	addl	%esi, %ecx
+	movq	%rcx, %rax
+	movq	%rdx, %rcx
+	addq	%rsi, %rdi
 	cmpq	$9, %rax
-	ja	.L21
-	movslq	%ecx, %rdi
+	ja	.L23
 	addl	$1, %r9d
 	cmpq	$9, %rdi
-	ja	.L20
-.L19:
+	ja	.L22
+.L26:
 	movl	%r9d, %eax
 	ret
 	.cfi_endproc

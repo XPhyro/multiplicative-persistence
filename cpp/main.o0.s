@@ -239,12 +239,15 @@ _ZNKSt6chrono8durationIdSt5ratioILl1ELl1000EEE5countEv:
 	.string	"Iteration count: "
 	.align 8
 .LC1:
-	.string	"Multiplicative persistence (old): "
+	.string	"Multiplicative persistence (old)        : "
 .LC3:
 	.string	"s\n"
 	.align 8
 .LC4:
-	.string	"Additive persistence            : "
+	.string	"Multiplicative persistence (new)        : "
+	.align 8
+.LC5:
+	.string	"Additive persistence                    : "
 	.text
 	.globl	main
 	.type	main, @function
@@ -337,7 +340,7 @@ main:
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	_ZNSt6chrono8durationIdSt5ratioILl1ELl1000EEEC1IlS1_ILl1ELl1000000000EEvEERKNS0_IT_T0_EE
-	leaq	.LC1(%rip), %rsi
+	leaq	.LC4(%rip), %rsi
 	leaq	_ZSt4cout(%rip), %rdi
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@PLT
 	movq	%rax, %rbx
@@ -361,7 +364,7 @@ main:
 .L22:
 	cmpl	$9999999, -60(%rbp)
 	ja	.L21
-	movabsq	$277777788888899, %rdi
+	movl	$199, %edi
 	call	_Z8add_persy
 	addl	$1, -60(%rbp)
 	jmp	.L22
@@ -379,7 +382,7 @@ main:
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	_ZNSt6chrono8durationIdSt5ratioILl1ELl1000EEEC1IlS1_ILl1ELl1000000000EEvEERKNS0_IT_T0_EE
-	leaq	.LC4(%rip), %rsi
+	leaq	.LC5(%rip), %rsi
 	leaq	_ZSt4cout(%rip), %rdi
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@PLT
 	movq	%rax, %rbx
@@ -493,13 +496,10 @@ _Z12mul_pers_newy:
 	movl	$0, %eax
 	jmp	.L31
 .L30:
-	movl	$1, -4(%rbp)
+	movq	$1, -8(%rbp)
 .L33:
 	cmpq	$0, -24(%rbp)
 	je	.L32
-	movl	-4(%rbp), %eax
-	cltq
-	movl	%eax, %esi
 	movq	-24(%rbp), %rcx
 	movabsq	$-3689348814741910323, %rdx
 	movq	%rcx, %rax
@@ -511,9 +511,9 @@ _Z12mul_pers_newy:
 	addq	%rax, %rax
 	subq	%rax, %rcx
 	movq	%rcx, %rdx
-	movl	%edx, %eax
-	imull	%esi, %eax
-	movl	%eax, -4(%rbp)
+	movq	-8(%rbp), %rax
+	imulq	%rdx, %rax
+	movq	%rax, -8(%rbp)
 	movq	-24(%rbp), %rax
 	movabsq	$-3689348814741910323, %rdx
 	mulq	%rdx
@@ -522,8 +522,7 @@ _Z12mul_pers_newy:
 	movq	%rax, -24(%rbp)
 	jmp	.L33
 .L32:
-	movl	-4(%rbp), %eax
-	cltq
+	movq	-8(%rbp), %rax
 	movq	%rax, %rdi
 	call	_Z12mul_pers_newy
 	addl	$1, %eax
@@ -551,7 +550,7 @@ _Z8add_persy:
 	movl	$0, %eax
 	jmp	.L36
 .L35:
-	movl	$0, -4(%rbp)
+	movq	$0, -8(%rbp)
 .L38:
 	cmpq	$0, -24(%rbp)
 	je	.L37
@@ -566,9 +565,7 @@ _Z8add_persy:
 	addq	%rax, %rax
 	subq	%rax, %rcx
 	movq	%rcx, %rdx
-	movl	-4(%rbp), %eax
-	addl	%edx, %eax
-	movl	%eax, -4(%rbp)
+	addq	%rdx, -8(%rbp)
 	movq	-24(%rbp), %rax
 	movabsq	$-3689348814741910323, %rdx
 	mulq	%rdx
@@ -577,8 +574,7 @@ _Z8add_persy:
 	movq	%rax, -24(%rbp)
 	jmp	.L38
 .L37:
-	movl	-4(%rbp), %eax
-	cltq
+	movq	-8(%rbp), %rax
 	movq	%rax, %rdi
 	call	_Z8add_persy
 	addl	$1, %eax
@@ -634,7 +630,7 @@ _ZNSt6chrono20__duration_cast_implINS_8durationIdSt5ratioILl1ELl1000EEEES2_ILl1E
 	call	_ZNKSt6chrono8durationIlSt5ratioILl1ELl1000000000EEE5countEv
 	pxor	%xmm0, %xmm0
 	cvtsi2sdq	%rax, %xmm0
-	movsd	.LC5(%rip), %xmm1
+	movsd	.LC6(%rip), %xmm1
 	divsd	%xmm1, %xmm0
 	movsd	%xmm0, -24(%rbp)
 	leaq	-24(%rbp), %rdx
@@ -742,7 +738,7 @@ _GLOBAL__sub_I_main:
 	.long	0
 	.long	1083129856
 	.align 8
-.LC5:
+.LC6:
 	.long	0
 	.long	1093567616
 	.hidden	__dso_handle
