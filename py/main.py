@@ -16,7 +16,7 @@ def mul_pers(x):
     while True:
         x //= 10
 
-        if not x:
+        if x == 0:
             return mul_pers(m) + 1
 
         m *= x % 10
