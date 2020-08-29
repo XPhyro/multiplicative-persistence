@@ -1,5 +1,5 @@
 # Persistence of a number
-This project aims to compute multiplicative and additive persistences of persistent-wise important numbers, where the persistence of a number is defined as how often you have to replace the number by the sum (for additive persistence) or product (for multiplicative persistence) of its digits to reach a single-digit number. The persistence functions are defined from non-negative integers to non-negative integers.
+This project aims to compute multiplicative and additive persistences of persistent-wise important numbers, where the persistence of a number is defined as how often you have to replace the number by the product (for multiplicative persistence) or sum (for additive persistence) of its digits to reach a single-digit number. The persistence functions are defined from non-negative integers to non-negative integers.
 
 # Results
 |                              |   Iteration Count   | Average Time For Old Multiplicative (s) | Average Time For New Multiplicative (s) | Average Time For Additive (s) |  Timing Method  |
