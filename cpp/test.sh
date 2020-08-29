@@ -111,7 +111,7 @@ do
     echo "Testing -O$i"
     n="$( ntable "$i" )"
 
-    : "$(( j = 1 ))"
+    : "$(( j = 0 ))"
     while [ "$j" -lt "$n" ]
     do
         # echo "Iteration $j"
