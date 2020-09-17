@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 
 ./compile.sh
-echo ""
+echo
 ./test.sh
